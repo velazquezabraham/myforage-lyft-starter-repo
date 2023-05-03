@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from serviceable import Serviceable
 
 class Car(Serviceable):
@@ -11,8 +12,3 @@ class Car(Serviceable):
     def get_battery(self):
         return self.__battery
 """
-    @abstractmethod
-    def needs_service(): #returns bool
-        pass
-
-
