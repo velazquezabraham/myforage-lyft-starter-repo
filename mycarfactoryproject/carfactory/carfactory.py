@@ -10,42 +10,42 @@ Describtion:
             - Cars are created by calling the corresponding create method on CarFactory.
         NOTE: Consult the Factory Design pattern for additional contexct.
 """
+#to create a car, we need the engine classes
+from engine.capuletengine import CapuletEngine
+from engine.sternmanengine import SternmanEngine
+from engine.willoughbyengine import WilloughbyEngine
 
-#to define abstract methods inside the CarFactory class
-from abc import ABC, abstractmethod
-from datetime import date
-#to know about the car, but do not inherit
+#to create a car, we need the battery classes
+from battery.nubbinbattery import NubbinBattery
+from battery.spindlerbattery import SpindleBattery
+
+#to create a car we need to know about the car class, but do not inherit
 from car import Car
-"""
-    This functions will return a car object.
 
-    current_date        [date]
-    last_service_date   [date]
-    current_mileage     [int]
-    last_service_mileage[int]
+#static methods class level, can only be called by the CarFactory class
+class CarFactory():
+    @staticmethod
+    def create_calliope(current_date, last_service_date, current_mileage, last_service_mileage):
+        #The calliope car model needs an engine and a battery
+        #create a calliope engine and a battery for this car model
+        engine = CapuletEngine(last_service_mileage,current_mileage)
+        battery = SpindleBattery(last_service_date,current_date)
 
-    returns a car object
-"""
-
-#define the abstract CarFactory class
-class CarFactory(ABC):
-    @abstractmethod
-    def create_calliope(current_date: date, last_service_date: date, current_mileage: int, last_service_mileage: int):
-        pass
-
-    @abstractmethod
-    def create_glissade(current_date: date, last_service_date: date, current_mileage: int, last_service_mileage: int):
-        pass
+    @staticmethod
+    def create_glissade(current_date, last_service_date, current_mileage, last_service_mileage):
+        engine = WilloughbyEngine(last_service_mileage,current_mileage)
+        battery = SpindleBattery(last_service_date,current_date)
     
-    @abstractmethod
-    def create_palindrome(current_date: date, last_service_date: date, warning_light_on: bool):
-        pass
+    @staticmethod
+    def create_palindrome(current_date, last_service_date, warning_light_on):
+        engine = SternmanEngine(warning_light_on)
+        battery = SpindleBattery(last_service_date,current_date)
 
-    @abstractmethod
-    def create_rorschach(current_date: date, last_service_date: date, current_mileage: int, last_service_mileage: int):
-        pass
-
-    @abstractmethod
-    def create_thovex(current_date: date, last_service_date: date, current_mileage: int, last_service_mileage: int):
-        pass
-
+    @staticmethod
+    def create_rorschach(current_date, last_service_date, current_mileage, last_service_mileage):
+        engine = WilloughbyEngine(last_service_mileage,current_mileage)
+        battery = NubbinBattery(last_service_date,current_date)
+    @staticmethod
+    def create_thovex(current_date, last_service_date, current_mileage, last_service_mileage):
+        engine = CapuletEngine(last_service_mileage,current_mileage)
+        battery = NubbinBattery(last_service_date,current_date)
